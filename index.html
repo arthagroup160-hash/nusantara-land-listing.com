@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lahan Strategis Penajam Paser Utara — Gerbang Ibu Kota Nusantara</title>
+<style>
+:root{
+  --forest:#12211A;
+  --forest-2:#1C3227;
+  --paper:#F1E9DA;
+  --paper-2:#E6D8BE;
+  --clay:#B5541F;
+  --clay-light:#D97A45;
+  --amber:#D9A648;
+  --sage:#8AA087;
+  --ink:#191712;
+  --line: rgba(241,233,218,0.14);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+.mono{ font-family: 'Courier New', monospace; }
+h1,h2,h3{ font-family: Georgia, 'Times New Roman', serif; font-weight:600; letter-spacing:-0.01em; }
+
+a{ color:inherit; text-decoration:none; }
+.container{ max-width:1080px; margin:0 auto; padding:0 28px; }
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 28px;
+  background:rgba(18,33,26,0.88);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brand{ display:flex; align-items:center; gap:10px; color:var(--paper); font-family: Georgia, 'Times New Roman', serif; font-weight:600; font-size:1.05rem; }
+.brand svg{ width:22px; height:22px; }
+.nav-links{ display:flex; gap:28px; font-size:0.85rem; color:var(--paper-2); }
+.nav-links a{ opacity:0.85; transition:opacity .2s; }
+.nav-links a:hover{ opacity:1; color:var(--amber); }
+.nav-cta{
+  background:var(--clay); color:var(--paper); padding:8px 16px; border-radius:2px;
+  font-size:0.8rem; letter-spacing:0.03em; text-transform:uppercase;
+}
+@media (max-width:720px){ .nav-links{ display:none; } }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  background: radial-gradient(ellipse at 30% 20%, var(--forest-2), var(--forest) 70%);
+  color:var(--paper);
+  display:flex; align-items:center;
+  padding-top:80px;
+  overflow:hidden;
+}
+.hero-map{
+  position:absolute; inset:0; opacity:0.9;
+}
+.hero-map svg{ width:100%; height:100%; }
+.plot-line{
+  fill:none; stroke:var(--clay-light); stroke-width:1.4;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draw 3.2s ease forwards;
+}
+.plot-line.delay2{ animation-delay: .3s; stroke:var(--amber); opacity:0.7;}
+.plot-line.delay3{ animation-delay: .6s; }
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+.gps-dot{
+  fill:#6EC1E4; animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{ 0%,100%{ opacity:1; r:5;} 50%{ opacity:0.4; r:9; } }
+
+.hero-content{ position:relative; z-index:2; max-width:640px; }
+.eyebrow{
+  font-family: 'Courier New', monospace; font-size:0.78rem; letter-spacing:0.12em;
+  color:var(--amber); text-transform:uppercase; margin-bottom:18px; display:block;
+}
+.hero h1{
+  font-size:clamp(2.2rem, 5vw, 3.4rem); line-height:1.08; margin-bottom:22px;
+  color:var(--paper);
+}
+.hero h1 em{ font-style:italic; color:var(--clay-light); }
+.hero p.sub{
+  font-size:1.05rem; line-height:1.65; color:var(--paper-2); max-width:520px; margin-bottom:32px; font-weight:300;
+}
+.price-strip{
+  display:flex; gap:28px; flex-wrap:wrap; margin-bottom:34px;
+  padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.price-item .label{ font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--sage); margin-bottom:4px;}
+.price-item .value{ font-family: Georgia, 'Times New Roman', serif; font-size:1.3rem; color:var(--paper); }
+.hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+.btn{
+  display:inline-block; padding:14px 26px; font-size:0.88rem; letter-spacing:0.03em;
+  border-radius:2px; transition:transform .2s, background .2s;
+}
+.btn-primary{ background:var(--clay); color:var(--paper); }
+.btn-primary:hover{ background:var(--clay-light); transform:translateY(-2px); }
+.btn-ghost{ border:1px solid var(--line); color:var(--paper); }
+.btn-ghost:hover{ border-color:var(--amber); color:var(--amber); }
+
+/* ---------- SECTION GENERIC ---------- */
+section{ padding:100px 0; position:relative; }
+.section-dark{ background:var(--forest); color:var(--paper); }
+.section-light{ background:var(--paper); color:var(--ink); }
+.tag{
+  font-family: 'Courier New', monospace; font-size:0.72rem; text-transform:uppercase;
+  letter-spacing:0.12em; color:var(--clay); margin-bottom:14px; display:block;
+}
+.section-dark .tag{ color:var(--amber); }
+.section-title{ font-size:clamp(1.7rem,3.4vw,2.5rem); margin-bottom:20px; max-width:640px; }
+.section-desc{ max-width:600px; font-weight:300; line-height:1.7; opacity:0.85; margin-bottom:50px; }
+
+/* reveal animation */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ---------- LAND DETAIL ---------- */
+.land-grid{
+  display:grid; grid-template-columns: 1.1fr 1fr; gap:50px; align-items:start;
+}
+@media (max-width:840px){ .land-grid{ grid-template-columns:1fr; } }
+
+.spec-list{ display:flex; flex-direction:column; }
+.spec-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:18px 0; border-bottom:1px solid rgba(0,0,0,0.1);
+}
+.spec-row .k{ font-size:0.85rem; color:#6b6455; text-transform:uppercase; letter-spacing:0.04em;}
+.spec-row .v{ font-family: Georgia, 'Times New Roman', serif; font-size:1.15rem; text-align:right; }
+.spec-row .v.big{ font-size:1.6rem; color:var(--clay); }
+
+.map-card{
+  background:var(--forest); border-radius:4px; overflow:hidden; padding:26px;
+  border:1px solid rgba(0,0,0,0.2);
+}
+.map-card svg{ width:100%; height:auto; display:block; }
+.coord-readout{
+  margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+  color:var(--paper-2); font-size:0.82rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+}
+.coord-readout .amber{ color:var(--amber); }
+
+.legal-note{
+  margin-top:28px; padding:18px 20px; background:var(--paper-2); border-left:3px solid var(--clay);
+  font-size:0.88rem; line-height:1.6;
+}
+
+/* ---------- IKN INFO ---------- */
+.fact-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line); margin-bottom:60px;
+}
+.fact-card{ background:var(--forest); padding:32px 26px; }
+.fact-card .num{ font-family: Georgia, 'Times New Roman', serif; font-size:2.2rem; color:var(--amber); margin-bottom:8px; }
+.fact-card .txt{ font-size:0.88rem; color:var(--paper-2); line-height:1.55; }
+@media (max-width:720px){ .fact-grid{ grid-template-columns:1fr; } }
+
+.timeline{ display:flex; flex-direction:column; gap:0; max-width:700px; }
+.tl-item{ display:flex; gap:22px; padding:22px 0; border-bottom:1px solid var(--line); }
+.tl-item .yr{ font-family: 'Courier New', monospace; color:var(--amber); font-size:0.85rem; min-width:90px; padding-top:3px;}
+.tl-item .body h4{ font-family: Georgia, 'Times New Roman', serif; font-size:1.05rem; margin-bottom:6px; font-weight:500; }
+.tl-item .body p{ font-size:0.88rem; color:var(--paper-2); line-height:1.6; font-weight:300; }
+
+/* ---------- INVESTMENT ---------- */
+.invest-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:36px; margin-bottom:40px; }
+@media (max-width:720px){ .invest-grid{ grid-template-columns:1fr; } }
+.invest-card{ padding:28px; background:#fff; border:1px solid rgba(0,0,0,0.08); }
+.invest-card h4{ font-size:1.05rem; margin-bottom:10px; display:flex; gap:10px; align-items:center; }
+.invest-card h4 .mark{ color:var(--clay); font-family: 'Courier New', monospace; font-size:0.9rem; }
+.invest-card p{ font-size:0.9rem; line-height:1.6; color:#4a453d; font-weight:300; }
+
+.disclaimer{
+  background:var(--forest-2); color:var(--paper-2); padding:26px 28px; border-radius:2px;
+  font-size:0.85rem; line-height:1.7; border-left:3px solid var(--amber);
+}
+.disclaimer strong{ color:var(--paper); }
+
+/* ---------- CONTACT ---------- */
+.contact{
+  background:var(--forest); color:var(--paper); text-align:center; padding:110px 0;
+}
+.contact h2{ font-size:clamp(1.8rem,4vw,2.8rem); margin-bottom:18px; }
+.contact p{ color:var(--paper-2); max-width:480px; margin:0 auto 36px; font-weight:300; line-height:1.6; }
+.contact-ctas{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+footer{
+  background:var(--ink); color:var(--paper-2); padding:32px 0; font-size:0.8rem;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <svg viewBox="0 0 24 24"><path d="M12 2 L2 8 L12 14 L22 8 Z" fill="none" stroke="#D9A648" stroke-width="1.4"/><path d="M6 11 L6 18 L12 22 L18 18 L18 11" fill="none" stroke="#B5541F" stroke-width="1.4"/></svg>
+    BTN Nusantara Land
+  </div>
+  <div class="nav-links">
+    <a href="#lahan">Detail Lahan</a>
+    <a href="#ikn">Tentang IKN</a>
+    <a href="#investasi">Potensi Investasi</a>
+    <a href="#kontak">Kontak</a>
+  </div>
+  <a href="#kontak" class="nav-cta">Hubungi</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-map">
+    <svg viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice">
+      <polyline class="plot-line" points="0,120 140,90 260,180 210,340 40,420 -20,300" />
+      <polyline class="plot-line delay2" points="140,90 320,60 480,150 420,320 260,340 260,180" />
+      <polyline class="plot-line" points="480,150 620,60 780,140 900,110" />
+      <polyline class="plot-line delay3" points="420,320 480,150 620,60" />
+      <polyline class="plot-line delay2" points="40,420 210,340 260,340 300,520 120,600 -20,560" />
+      <polyline class="plot-line delay3" points="260,340 420,320 460,540 300,520" />
+      <polyline class="plot-line" points="460,540 620,500 780,560 900,520" />
+      <polyline class="plot-line delay2" points="300,520 460,540 500,720 260,760 120,600" />
+      <circle class="gps-dot" cx="245" cy="332" r="5" />
+    </svg>
+  </div>
+  <div class="container hero-content">
+    <span class="eyebrow">Penajam Paser Utara · Kalimantan Timur</span>
+    <h1>Tanah yang menyaksikan <em>ibu kota</em> lahir dari hutan.</h1>
+    <p class="sub">Lahan seluas 4.911 m² di jalur akses menuju Ibu Kota Nusantara — dekat tol, dekat jalan provinsi, dan berada tepat di kawasan yang sedang tumbuh paling cepat di Kalimantan Timur.</p>
+    <div class="price-strip">
+      <div class="price-item"><div class="label">Luas Lahan</div><div class="value mono">4.911 m²</div></div>
+      <div class="price-item"><div class="label">Harga / m²</div><div class="value mono">Rp175.000</div></div>
+      <div class="price-item"><div class="label">Total Harga</div><div class="value mono">Rp859.425.000</div></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#lahan" class="btn btn-primary">Lihat Detail Lahan</a>
+      <a href="#kontak" class="btn btn-ghost">Hubungi Kami</a>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL LAHAN -->
+<section class="section-light" id="lahan">
+  <div class="container">
+    <span class="tag reveal">001 — Detail Bidang</span>
+    <h2 class="section-title reveal">Spesifikasi lengkap lahan yang ditawarkan</h2>
+    <p class="section-desc reveal">Berikut rincian teknis dan lokasi bidang tanah, diambil langsung dari data ukur dan titik koordinat lapangan.</p>
+
+    <div class="land-grid">
+      <div class="spec-list reveal">
+        <div class="spec-row"><span class="k">Luas Lahan</span><span class="v big">4.911 m²</span></div>
+        <div class="spec-row"><span class="k">Harga per m²</span><span class="v">Rp175.000</span></div>
+        <div class="spec-row"><span class="k">Total Harga</span><span class="v">Rp859.425.000 <span style="font-size:0.6em; color:#8a8272;">(nego)</span></span></div>
+        <div class="spec-row"><span class="k">Jarak ke Tol IKN–Balikpapan</span><span class="v">± 500 m</span></div>
+        <div class="spec-row"><span class="k">Jarak ke Jl. Provinsi Ahmad Yani</span><span class="v">± 1 km</span></div>
+        <div class="spec-row"><span class="k">Status Sertifikat</span><span class="v">Hak Milik (SHM)</span></div>
+        <div class="spec-row"><span class="k">Potensi Peruntukan</span><span class="v">Kavling / Investasi</span></div>
+
+        <div class="legal-note">
+          <strong>Catatan legalitas:</strong> Bidang tanah berstatus Hak Milik (SHM) dengan luas 4.911 m². Calon pembeli tetap disarankan melakukan pengecekan langsung ke Kantor Pertanahan (BPN) setempat untuk verifikasi keaslian sertifikat sebelum transaksi.
+        </div>
+      </div>
+
+      <div class="map-card reveal">
+        <div style="text-align:center; padding:10px 0 6px;">
+          <div style="font-size:2.2rem; margin-bottom:6px;">📍</div>
+          <div class="mono" style="color:#F1E9DA; font-size:1.05rem; margin-bottom:4px;">1°03'49.8"S 116°38'25.9"E</div>
+          <div class="mono amber" style="font-size:0.95rem;">-1.063825, 116.640534</div>
+        </div>
+        <a href="https://www.google.com/maps?q=-1.063825,116.640534" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:18px; padding:14px; background:var(--clay); color:#F1E9DA; border-radius:2px; font-size:0.88rem; letter-spacing:0.03em;">Buka Titik Lokasi di Google Maps ↗</a>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:140px; background:rgba(241,233,218,0.06); border:1px solid var(--line); padding:10px 14px; font-size:0.8rem; color:var(--paper-2);">Tipe Hak <br><strong style="color:#F1E9DA; font-size:0.92rem;">Hak Milik</strong></div>
+          <div style="flex:1; min-width:140px; background:rgba(241,233,218,0.06); border:1px solid var(--line); padding:10px 14px; font-size:0.8rem; color:var(--paper-2);">Luas <br><strong style="color:#F1E9DA; font-size:0.92rem;">4.911 m²</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG IKN -->
+<section class="section-dark" id="ikn">
+  <div class="container">
+    <span class="tag reveal">002 — Tentang Ibu Kota Nusantara</span>
+    <h2 class="section-title reveal">Kota yang sedang dibangun dari nol, di depan lahan ini.</h2>
+    <p class="section-desc reveal">IKN Nusantara terletak di Kabupaten Penajam Paser Utara dan Kutai Kartanegara, Kalimantan Timur, dirancang sebagai pusat pemerintahan baru sekaligus kota hijau dan cerdas. Status pemindahan resmi ibu kota masih menunggu proses hukum lanjutan, namun pembangunan fisik kawasan terus berjalan masif.</p>
+
+    <div class="fact-grid reveal">
+      <div class="fact-card">
+        <div class="num">75%+</div>
+        <div class="txt">Target kawasan hijau di area Pusat Pemerintahan Inti (KIPP), sebagai bagian dari visi kota berkelanjutan.</div>
+      </div>
+      <div class="fact-card">
+        <div class="num">70%</div>
+        <div class="txt">Progres pembangunan jalan kawasan hunian pekerja konstruksi per Maret 2026, ditargetkan rampung Juli 2026.</div>
+      </div>
+      <div class="fact-card">
+        <div class="num">10 mnt</div>
+        <div class="txt">Target akses ruang terbuka hijau dan layanan sosial dasar bagi seluruh penduduk kawasan inti.</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="yr">2024–25</div>
+        <div class="body"><h4>Pembangunan Kawasan Inti</h4><p>Gedung pemerintahan, kawasan hunian ASN, dan infrastruktur dasar mulai berdiri di kawasan inti pusat pemerintahan.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="yr">2026</div>
+        <div class="body"><h4>Perluasan ke Sektor Ekonomi & Wisata</h4><p>Otorita IKN mulai mengarahkan kawasan sebagai pusat pertumbuhan ekonomi baru lewat sektor wisata, dengan fasilitas seperti area glamping, pusat kebudayaan, dan pusat kuliner.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="yr">2026</div>
+        <div class="body"><h4>Masuknya Investor Swasta</h4><p>Sejumlah investor domestik dan asing mulai berkomitmen membangun fasilitas komersial, hotel, dan pusat bisnis di sekitar kawasan IKN melalui skema kerja sama pemerintah-swasta.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="yr">Berjalan</div>
+        <div class="body"><h4>Kebutuhan Hunian Terus Tumbuh</h4><p>Rumah susun dan kawasan perumahan khusus ASN terus dikembangkan seiring bertambahnya pegawai dan keluarga yang menempati kawasan tersebut.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTASI -->
+<section class="section-light" id="investasi">
+  <div class="container">
+    <span class="tag reveal">003 — Potensi Investasi</span>
+    <h2 class="section-title reveal">Kenapa lahan di sekitar IKN dilirik investor?</h2>
+    <p class="section-desc reveal">Kedekatan dengan akses utama dan pertumbuhan kawasan menjadi alasan utama minat terhadap lahan di sekitar IKN. Berikut beberapa faktor pendukungnya.</p>
+
+    <div class="invest-grid reveal">
+      <div class="invest-card">
+        <h4><span class="mark">→</span> Akses Infrastruktur</h4>
+        <p>Lahan berjarak sekitar 500 m dari Tol IKN–Balikpapan dan 1 km dari Jalan Provinsi Ahmad Yani, dua jalur utama yang menghubungkan kawasan ke pusat pemerintahan dan kota penyangga.</p>
+      </div>
+      <div class="invest-card">
+        <h4><span class="mark">→</span> Momentum Pembangunan</h4>
+        <p>Progres konstruksi jalan dan fasilitas kawasan inti yang terus berjalan sepanjang 2026 mendorong pertumbuhan aktivitas ekonomi di wilayah sekitarnya, termasuk Penajam Paser Utara.</p>
+      </div>
+      <div class="invest-card">
+        <h4><span class="mark">→</span> Minat Investor Swasta</h4>
+        <p>Komitmen investor domestik dan asing untuk membangun fasilitas komersial dan hunian menjadi sinyal berkembangnya kawasan sebagai pusat ekonomi baru, bukan sekadar pusat pemerintahan.</p>
+      </div>
+      <div class="invest-card">
+        <h4><span class="mark">→</span> Fleksibilitas Peruntukan</h4>
+        <p>Luas 4.911 m² dapat dipertahankan sebagai satu bidang investasi jangka panjang, atau dipecah menjadi beberapa kavling sesuai kebutuhan pasar perumahan dan usaha di sekitar kawasan.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer reveal">
+      <strong>Penting untuk diperhatikan:</strong> Informasi di atas disusun untuk tujuan promosi dan edukasi, bukan jaminan kenaikan nilai investasi. Nilai tanah dapat dipengaruhi oleh kebijakan pemerintah, progres pembangunan aktual, dan kondisi pasar yang dapat berubah sewaktu-waktu. Calon pembeli disarankan melakukan verifikasi legalitas lahan secara mandiri ke Kantor Pertanahan (BPN) setempat serta mempertimbangkan konsultasi dengan pihak profesional sebelum mengambil keputusan.
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section class="contact" id="kontak">
+  <div class="container">
+    <span class="tag reveal">004 — Hubungi Kami</span>
+    <h2 class="reveal">Tertarik survei lokasi langsung?</h2>
+    <p class="reveal">Kami siap mengantar Anda melihat langsung bidang lahan, titik koordinat, dan akses menuju kawasan IKN.</p>
+    <div class="contact-ctas reveal">
+      <a href="https://wa.me/6285143528059" class="btn btn-primary">Chat via WhatsApp</a>
+      <a href="mailto:malviejayagroydnndrjup@gmail.com" class="btn btn-ghost">Kirim Email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
+    <span>© 2026 Baheula Tani Nusantara (BTN Nusantara Land) · Penajam Paser Utara, Kalimantan Timur</span>
+    <span>Marketing lahan atas kuasa pemilik tanah</span>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
